@@ -5,11 +5,19 @@ const Header = ({course}) => (
   <h1>{course}</h1>
 )
 
-const Content = ({paragraphs}) => (
-    paragraphs.map(paragraph => {
-      return <p>{paragraph.part} {paragraph.exercises}</p>
-    })
+const Part = ({paragraph}) => (
+    <p>{paragraph.part} {paragraph.exercises}</p>
 )
+
+const Content = ({paragraphs}) => {
+  return (
+    <div>
+      <Part paragraph={paragraphs[0]}/>
+      <Part paragraph={paragraphs[1]}/>
+      <Part paragraph={paragraphs[2]}/>
+    </div>
+  )
+}
 
 const Total = ({exercises}) => (
   <p>Number of exercises {exercises.reduce((a, b) => a + b)}</p>
