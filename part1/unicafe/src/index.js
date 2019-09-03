@@ -17,14 +17,16 @@ const App = () => {
         break;
       case 'bad':
         setBad(bad + 1);
-        break;        
+        break;
+      default:
+        console.error(`There are no function for label "${label}"`);     
     }
   }
 
   return (
     <div>
       <h2>give feedback</h2>
-      <Button onClick={handleBtnClick('good')} label="good" />
+      <Button onClick={handleBtnClick('goo')} label="good" />
       <Button onClick={handleBtnClick('neutral')} label="neutral" />
       <Button onClick={handleBtnClick('bad')} label="bad" />
       <Statistics good={good} neutral={neutral} bad={bad} />
@@ -44,12 +46,14 @@ const Statistics = ({good, neutral, bad}) => {
   return (
     <>
       <h2>statistics</h2>
-      <Statistic text="good" value ={good} />
-      <Statistic text="neutral" value ={neutral} />
-      <Statistic text="bad" value ={bad} />
-      <Statistic text="all" value ={all} />
-      <Statistic text="average" value ={average} />
-      <Statistic text="positive" value ={positive} />
+      <table>
+        <Statistic text="good" value ={good} />
+        <Statistic text="neutral" value ={neutral} />
+        <Statistic text="bad" value ={bad} />
+        <Statistic text="all" value ={all} />
+        <Statistic text="average" value ={average} />
+        <Statistic text="positive" value ={positive} />
+      </table>
     </>
   )
 }
@@ -58,7 +62,12 @@ const Button = ({onClick, label}) => {
   return <button onClick={onClick}>{label}</button>
 }
 
-const Statistic = ({text, value}) => <p>{text} {value}</p>
+const Statistic = ({text, value}) => (
+  <tr>
+    <td>{text}</td>
+    <td>{value}</td>
+  </tr>
+  )
 
 ReactDOM.render(<App />, 
   document.getElementById('root')
