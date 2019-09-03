@@ -7,12 +7,26 @@ const App = () => {
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
 
+  const handleBtnClick = (label) => () => {
+    switch (label) {
+      case 'good':
+        setGood(good + 1);
+        break;
+      case 'neutral':
+        setNeutral(neutral + 1);
+        break;
+      case 'bad':
+        setBad(bad + 1);
+        break;        
+    }
+  }
+
   return (
     <div>
       <h2>give feedback</h2>
-      <button onClick={() => setGood(good + 1)}>good</button>
-      <button onClick={() => setNeutral(neutral + 1)}>neutral</button>
-      <button onClick={() => setBad(bad + 1)}>bad</button>
+      <Button onClick={handleBtnClick('good')} label="good" />
+      <Button onClick={handleBtnClick('neutral')} label="neutral" />
+      <Button onClick={handleBtnClick('bad')} label="bad" />
       <Statistics good={good} neutral={neutral} bad={bad} />
     </div>
   )
@@ -20,6 +34,8 @@ const App = () => {
 
 const Statistics = ({good, neutral, bad}) => {
   const all = good + neutral + bad;
+  const average = (good * 1 + neutral * 0 + bad * -1) / all;
+  const positive = `${good / all * 100} %`;
 
   if (!all) return (
     <p>No feedback given</p>
@@ -28,15 +44,21 @@ const Statistics = ({good, neutral, bad}) => {
   return (
     <>
       <h2>statistics</h2>
-      <p>good {good}</p>
-      <p>neutral {neutral}</p>
-      <p>bad {bad}</p>
-      <p>all {all}</p>
-      <p>average {(good * 1 + neutral * 0 + bad * -1) / all}</p>
-      <p>positive {good / all} %</p>
+      <Statistic text="good" value ={good} />
+      <Statistic text="neutral" value ={neutral} />
+      <Statistic text="bad" value ={bad} />
+      <Statistic text="all" value ={all} />
+      <Statistic text="average" value ={average} />
+      <Statistic text="positive" value ={positive} />
     </>
   )
 }
+
+const Button = ({onClick, label}) => {
+  return <button onClick={onClick}>{label}</button>
+}
+
+const Statistic = ({text, value}) => <p>{text} {value}</p>
 
 ReactDOM.render(<App />, 
   document.getElementById('root')
