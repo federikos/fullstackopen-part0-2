@@ -1,6 +1,13 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
+const Anecdote = ({ content, points }) => (
+  <div>
+    {content}
+    <div>has {points} votes</div>
+  </div>
+)
+
 const App = (props) => {
   const [selected, setSelected] = useState(0)
   const [points, setPoints] = useState(new Array(anecdotes.length+1).join('0').split('').map(parseFloat))
@@ -31,15 +38,13 @@ const App = (props) => {
     <>
       <div>
         <h2>Anecdote of the day</h2>
-        <p>{props.anecdotes[selected]}</p>
-        <p>has {points[selected]} votes</p>
+        <Anecdote content={anecdotes[selected]} points={points[selected]} />
         <button onClick={handleVoteClick}>vote</button>
         <button onClick={handleNextClick}>next anecdote</button>
       </div>
       <div>
         <h2>Anecdote with most votes</h2>
-        <p>{props.anecdotes[best]}</p>
-        <p>has {points[best]} votes</p>
+        <Anecdote content={anecdotes[best]} points={points[best]} />
       </div>
     </>
   )
