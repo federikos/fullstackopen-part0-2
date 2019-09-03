@@ -1,19 +1,10 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
   const [points, setPoints] = useState(new Array(anecdotes.length+1).join('0').split('').map(parseFloat))
-  const [maxVotesIndex, setMaxVotesIndex] = useState(0)
-  useEffect(() => getMaxVotesIndex());
-
-  const getMaxVotesIndex = () => {
-    for (let i = 0; i < points.length; i++) {
-      if (points[i] > points[maxVotesIndex]) {
-        setMaxVotesIndex(i);
-      } 
-    }
-  };
+  const [best, setBest] = useState(0)
 
   const handleNextClick = () => {
     const getRandomIndex = () => Math.floor(Math.random() * anecdotes.length);
@@ -25,11 +16,15 @@ const App = (props) => {
 
     setSelected(randomIndex)
   }
-  
+
   const handleVoteClick = () => {
     const newPoints = [...points];
     newPoints[selected]++;
-    setPoints(newPoints)
+    setPoints(newPoints);
+
+    if (newPoints[best] < newPoints[selected]) {
+      setBest(selected);
+    }
   }
 
   return (
@@ -43,8 +38,8 @@ const App = (props) => {
       </div>
       <div>
         <h2>Anecdote with most votes</h2>
-        <p>{props.anecdotes[maxVotesIndex]}</p>
-        <p>has {points[maxVotesIndex]} votes</p>
+        <p>{props.anecdotes[best]}</p>
+        <p>has {points[best]} votes</p>
       </div>
     </>
   )
