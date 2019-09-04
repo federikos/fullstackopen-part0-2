@@ -1,31 +1,20 @@
 import React, { useState } from 'react'
-
-const Search = ({ onChange }) => {
-  return (
-    <div>
-      filter shown with <input onChange={onChange} />
-    </div>
-  )
-}
-
-const Persons = ({ persons }) => (
-  <div>
-  { persons.map(person => <p key={person.name}>{person.name} {person.number}</p>) }
-  </div>
-)
+import Filter from './components/Filter'
+import PersonForm from './components/PersonForm'
+import Persons from './components/Persons'
 
 const App = () => {
-  const [ persons, setPersons] = useState([
+  const [ persons, setPersons ] = useState([
     { name: 'Arto Hellas', number: '040-123456' },
     { name: 'Ada Lovelace', number: '39-44-5323523' },
     { name: 'Dan Abramov', number: '12-43-234345' },
     { name: 'Mary Poppendieck', number: '39-23-6423122' }
   ])
-  const [filteredPersons, setFilteredPersons] = useState([])
-  const [showFiltered, setShowFiltered] = useState(false)
+  const [ filteredPersons, setFilteredPersons ] = useState([])
+  const [ showFiltered, setShowFiltered ] = useState(false)
   const [ newName, setNewName ] = useState('')
   const [ newNumber, setNewNumber ] = useState('')
-  const [ searchValue, setSearchValue] = useState('')
+  const [ filterValue, setFilterValue] = useState('')
   
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -38,8 +27,11 @@ const App = () => {
     }
   }
 
-  const handleSearchValueChange = e => {
-    setSearchValue(e.target.value)
+  const handleNameChange = e => setNewName(e.target.value);
+  const handleNumberChange = e => setNewNumber(e.target.value);
+
+  const handlefilterValueChange = e => {
+    setFilterValue(e.target.value)
     
     e.target.value === ''
     ? setShowFiltered(false)
@@ -53,18 +45,15 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Search value={searchValue} onChange={handleSearchValueChange} />
+      <Filter value={filterValue} onChange={handlefilterValueChange} />
       <h2>Add a new</h2>
-      <form onSubmit={handleFormSubmit}>
-        <div>
-          name: <input value={newName} onChange={e => setNewName(e.target.value)} />
-        </div>
-        <div>
-          number: <input value={newNumber} onChange={e => setNewNumber(e.target.value)} /></div>
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <PersonForm 
+        onSubmit={handleFormSubmit} 
+        newName={newName} 
+        newNumber={newNumber} 
+        handleNameChange={handleNameChange} 
+        handleNumberChange={handleNumberChange} 
+      />
       <h2>Numbers</h2>
       <Persons persons={showFiltered ? filteredPersons : persons}/>
     </div>
