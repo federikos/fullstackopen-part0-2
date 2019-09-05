@@ -1,20 +1,25 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import Geographic from './Geographic'
+import Weather from './Weather'
 
-const Country = ({ country }) => (
-  <>
-    <h2>{country.name}</h2>
-    <p>capital {country.capital}</p>
-    <p>population {country.population}</p>
-    <h3>languages</h3>
-    <ul>
-      {country.languages.map(languageObj => {
-        return (
-          <li key={languageObj.iso639_1}>{languageObj.name}</li>
-        )
-      })}
-    </ul>
-    <img src={country.flag} alt={`flag of ${country.name}`} width='150' />
-</>
-)
+const Country = ({ country }) => {
+  const [ weatherData, setWeatherData ] = useState('');
+  const OPEN_WEATHER_KEY = '7f3e13071424487a413e7be17543d75a';
+  
+  useEffect(() => {
+    axios
+      .get( `https://cors-anywhere.herokuapp.com/https://samples.openweathermap.org/data/2.5/weather?q=${country.capital}&appid=${OPEN_WEATHER_KEY}`)
+      .then(res => setWeatherData(res.data))
+
+  }, []);
+  
+  return (
+    <>
+      <Geographic country={country} />
+      <Weather weatherData={weatherData} country={country} />
+    </>
+  )
+}
 
 export default Country;
