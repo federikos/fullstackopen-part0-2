@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import Countries from './components/Countries'
+import Country from './components/Country'
 
 function App() {
   const [ countries, setCountries ] = useState([]);
@@ -11,6 +13,11 @@ function App() {
     });
     setFilteredCountries([...newFilteredCountries]);
   }
+
+  const handleBtnClick = name => () => {
+    setFilteredCountries(filteredCountries.filter(country => country.name === name))
+  }
+
   useEffect(() => {
     axios
       .get('https://restcountries.eu/rest/v2/all')
@@ -29,25 +36,11 @@ function App() {
         }
         {
           (filteredCountries.length <= 10 && filteredCountries.length > 1) 
-          && filteredCountries.map(country => <p key={country.numericCode}>{country.name}</p>)
+          && <Countries countries={filteredCountries} onClick={handleBtnClick}/>
         }
         {
           filteredCountries.length === 1
-          && 
-            <div>
-              <h2>{filteredCountries[0].name}</h2>
-              <p>capital {filteredCountries[0].capital}</p>
-              <p>population {filteredCountries[0].population}</p>
-              <h3>languages</h3>
-              <ul>
-                {filteredCountries[0].languages.map(languageObj => {
-                  return (
-                    <li key={languageObj.iso639_1}>{languageObj.name}</li>
-                  )
-                })}
-              </ul>
-              <img src={filteredCountries[0].flag} alt={`flag of ${filteredCountries[0].name}`} />
-            </div>
+          && <Country country={filteredCountries[0]} />
         }
       </div>
     </div>
