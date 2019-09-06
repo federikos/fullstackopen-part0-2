@@ -21,12 +21,12 @@ const App = () => {
   
   const handleFormSubmit = (e) => {
     e.preventDefault();
+    const newPersonObj = {name: newName, number: newNumber};
+    const foundPerson = persons.find(person => person.name === newName);
 
-    if (!persons.some(person => person.name === newName)) {
-      const personObj = {name: newName, number: newNumber};
-
+    if (!foundPerson) {
       personService
-        .create(personObj)
+        .create(newPersonObj)
           .then(returnedPerson => {
             setPersons(persons.concat(returnedPerson))
             setNewName('');
@@ -34,7 +34,20 @@ const App = () => {
           })
           .catch(e => alert(`error: ${e.message}`))
     } else {
-      alert(`${newName} is already added to phonebook`);
+      if (foundPerson.number === newNumber) {
+        alert(`${newName} is already added to phonebook`);
+      } else {
+        window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)
+        &&
+        personService
+          .updateNumber(foundPerson.id, newPersonObj)
+            .then(updatedPerson => {
+              setPersons(persons.map(person => person.id !== updatedPerson.id ? person : updatedPerson))
+              setNewName('');
+              setNewNumber('');
+            })
+            .catch(e => alert(`hasn't been able to update ${newName}'s number, error: ${e.message}`))
+      }
     }
   }
 
