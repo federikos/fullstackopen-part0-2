@@ -9,7 +9,7 @@ function App() {
 
   const handleInputChange = e => {
     const newFilteredCountries = countries.filter(country => {
-        return new RegExp(`${e.target.value}`, 'i').test(country.name.toLowerCase());
+        return country.name.toLowerCase().includes(e.target.value.toLowerCase());
     });
     setFilteredCountries([...newFilteredCountries]);
   }
