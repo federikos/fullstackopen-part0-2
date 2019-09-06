@@ -71,7 +71,7 @@ const App = () => {
     : setShowFiltered(true)
 
     setFilteredPersons(persons.filter(person => {
-      return person.name.split(' ').some(name => name.toLowerCase() === e.target.value.toLowerCase())
+      return person.name.toLowerCase().includes(e.target.value.toLowerCase());
     }))
   }
 
