@@ -53,6 +53,15 @@ const App = () => {
     }))
   }
 
+  const handleDelClick = (id, name) => () => {
+    window.confirm(`Delete ${name}? Seriously?`)
+    &&
+    personService
+      .del(id)
+        .then(() => setPersons(persons.filter(person => person.id !== id)))
+        .catch(e => alert(`hasn't been able to remove ${name}, error: ${e.message}`))
+  }
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -66,7 +75,7 @@ const App = () => {
         handleNumberChange={handleNumberChange} 
       />
       <h2>Numbers</h2>
-      <Persons persons={showFiltered ? filteredPersons : persons}/>
+      <Persons persons={showFiltered ? filteredPersons : persons} onClick={handleDelClick} />
     </div>
   )
 }

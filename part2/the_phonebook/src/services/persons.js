@@ -9,7 +9,10 @@ const getAll = () => {
 const create = newObj => {
   return axios.post(baseUrl, newObj)
     .then(res => res.data)
-    .catch(e => alert(e.message))
 }
 
-export default { getAll, create }
+const del = id => {
+  return axios.delete(`${baseUrl}/${id}`)
+}
+
+export default { getAll, create, del }
