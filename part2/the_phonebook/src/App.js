@@ -19,7 +19,10 @@ const App = () => {
     personService
       .getAll()
         .then(initialPersons => setPersons(initialPersons))
-        .catch(e => alert(`error: ${e.message}`))
+        .catch(e => {
+          setErrorMsg(e.message);
+          setTimeout(() => setErrorMsg(null), 5000)
+        })
   }, []);
   
   const handleFormSubmit = e => {
@@ -37,7 +40,10 @@ const App = () => {
             setNewName('');
             setNewNumber('');
           })
-          .catch(e => alert(`error: ${e.message}`))
+          .catch(e => {
+            setErrorMsg(e.message);
+            setTimeout(() => setErrorMsg(null), 5000)
+          })
     } else {
       if (foundPerson.number === newNumber) {
         alert(`${newName} is already added to phonebook`);
@@ -81,7 +87,10 @@ const App = () => {
     personService
       .del(id)
         .then(() => setPersons(persons.filter(person => person.id !== id)))
-        .catch(e => alert(`hasn't been able to remove ${name}, error: ${e.message}`))
+        .catch(e => {
+          setErrorMsg(`hasn't been able to remove ${name}, error: ${e.message}`);
+          setTimeout(() => setErrorMsg(null), 5000)
+        })
   }
 
   return (
