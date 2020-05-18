@@ -41,7 +41,7 @@ const App = () => {
             setNewNumber('');
           })
           .catch(e => {
-            setErrorMsg(e.message);
+            setErrorMsg(e.response.data.error);
             setTimeout(() => setErrorMsg(null), 5000)
           })
     } else {

@@ -26,7 +26,7 @@ const App = () => {
   return (
     <div>
       <h2>give feedback</h2>
-      <Button onClick={handleBtnClick('goo')} label="good" />
+      <Button onClick={handleBtnClick('good')} label="good" />
       <Button onClick={handleBtnClick('neutral')} label="neutral" />
       <Button onClick={handleBtnClick('bad')} label="bad" />
       <Statistics good={good} neutral={neutral} bad={bad} />
@@ -47,12 +47,14 @@ const Statistics = ({good, neutral, bad}) => {
     <>
       <h2>statistics</h2>
       <table>
-        <Statistic text="good" value ={good} />
-        <Statistic text="neutral" value ={neutral} />
-        <Statistic text="bad" value ={bad} />
-        <Statistic text="all" value ={all} />
-        <Statistic text="average" value ={average} />
-        <Statistic text="positive" value ={positive} />
+        <tbody>
+          <Statistic text="good" value ={good} />
+          <Statistic text="neutral" value ={neutral} />
+          <Statistic text="bad" value ={bad} />
+          <Statistic text="all" value ={all} />
+          <Statistic text="average" value ={average} />
+          <Statistic text="positive" value ={positive} />
+        </tbody>
       </table>
     </>
   )
