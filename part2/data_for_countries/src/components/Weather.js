@@ -1,7 +1,7 @@
 import React from 'react'
 
 const Weather = ({ weatherData, country }) => {
-  if (!weatherData) return('');
+  if (!weatherData) return null;
   return (
     <div>
       <h3>Weather in {country.capital}</h3>

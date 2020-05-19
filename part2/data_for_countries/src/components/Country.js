@@ -9,10 +9,10 @@ const Country = ({ country }) => {
   
   useEffect(() => {
     axios
-      .get( `https://cors-anywhere.herokuapp.com/https://samples.openweathermap.org/data/2.5/weather?q=${country.capital}&appid=${OPEN_WEATHER_KEY}`)
+      .get( `https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&appid=${OPEN_WEATHER_KEY}`)
       .then(res => setWeatherData(res.data))
 
-  }, []);
+  }, [country.capital]);
   
   return (
     <>
