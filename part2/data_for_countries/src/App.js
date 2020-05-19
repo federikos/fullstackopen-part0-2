@@ -7,9 +7,9 @@ function App() {
   const [ countries, setCountries ] = useState([]);
   const [ filteredCountries, setFilteredCountries ] = useState('');
 
-  const handleInputChange = e => {
+  const handleInputChange = ({ target: { value: inputValue }}) => {
     const newFilteredCountries = countries.filter(country => {
-        return country.name.toLowerCase().includes(e.target.value.toLowerCase());
+        return country.name.toLowerCase().includes(inputValue.toLowerCase());
     });
     setFilteredCountries([...newFilteredCountries]);
   }
