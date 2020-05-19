@@ -10,7 +10,7 @@ const Anecdote = ({ content, points }) => (
 
 const App = (props) => {
   const [selected, setSelected] = useState(0)
-  const [points, setPoints] = useState(new Array(anecdotes.length+1).join('0').split('').map(parseFloat))
+  const [points, setPoints] = useState(new Array(anecdotes.length+1).join('0').split('').map(parseFloat)) //[0, 0, 0, 0, 0, 0, 0]
   const [best, setBest] = useState(0)
 
   const handleNextClick = () => {
