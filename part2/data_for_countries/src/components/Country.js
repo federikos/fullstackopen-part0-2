@@ -5,11 +5,11 @@ import Weather from './Weather'
 
 const Country = ({ country }) => {
   const [ weatherData, setWeatherData ] = useState('');
-  const OPEN_WEATHER_KEY = '7f3e13071424487a413e7be17543d75a';
+  const openweatherKey = process.env.REACT_APP_OPENWEATHERMAP_API_KEY;
   
   useEffect(() => {
     axios
-      .get( `https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&appid=${OPEN_WEATHER_KEY}`)
+      .get( `https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&appid=${openweatherKey}`)
       .then(res => setWeatherData(res.data))
 
   }, [country.capital]);
