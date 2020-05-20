@@ -41,7 +41,7 @@ const App = () => {
             setNewNumber('');
           })
           .catch(e => {
-            setErrorMsg(e.response.data.error);
+            setErrorMsg(e.message);
             setTimeout(() => setErrorMsg(null), 5000)
           })
     } else {
@@ -89,6 +89,10 @@ const App = () => {
       .del(id)
         .then(() => setPersons(persons.filter(person => person.id !== id)))
         .catch(e => {
+          if (e.response.status === 404) { 
+            //if error and status === 'not found', contact doesn't exist on the server, so we should delete it from client state too
+            setPersons(persons.filter(person => person.id !== id))
+          }
           setErrorMsg(`hasn't been able to remove ${name}, error: ${e.message}`);
           setTimeout(() => setErrorMsg(null), 5000)
         })
