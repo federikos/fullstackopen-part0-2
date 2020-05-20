@@ -54,6 +54,7 @@ const App = () => {
           .updateNumber(foundPerson.id, newPersonObj)
             .then(updatedPerson => {
               setPersons(persons.map(person => person.id !== updatedPerson.id ? person : updatedPerson))
+              setSuccessMsg(`Number of '${newName}' has been successfully changed`);
               setNewName('');
               setNewNumber('');
             })
