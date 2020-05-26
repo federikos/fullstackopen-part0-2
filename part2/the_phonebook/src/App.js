@@ -46,7 +46,7 @@ const App = () => {
           })
     } else {
       if (foundPerson.number === newNumber) {
-        alert(`${newName} is already added to phonebook`);
+        alert(`${newNumber} is already added to phonebook`);
       } else {
         window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)
         &&
