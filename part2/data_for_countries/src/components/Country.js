@@ -12,7 +12,7 @@ const Country = ({ country }) => {
       .get( `https://api.openweathermap.org/data/2.5/weather?q=${country.capital}&appid=${openweatherKey}`)
       .then(res => setWeatherData(res.data))
 
-  }, [country.capital]);
+  }, [country.capital, openweatherKey]);
   
   return (
     <>
