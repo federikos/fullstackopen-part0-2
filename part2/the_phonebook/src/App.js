@@ -55,6 +55,7 @@ const App = () => {
             .then(updatedPerson => {
               setPersons(persons.map(person => person.id !== updatedPerson.id ? person : updatedPerson))
               setSuccessMsg(`Number of '${newName}' has been successfully changed`);
+              setTimeout(() => setSuccessMsg(null), 5000)
               setNewName('');
               setNewNumber('');
             })
