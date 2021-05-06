@@ -51,7 +51,7 @@ const App = () => {
         window.confirm(`${newName} is already added to phonebook, replace the old number with a new one?`)
         &&
         personService
-          .updateNumber(foundPerson.id, newPersonObj)
+          .updateNumber(foundPerson.id, { number: newPersonObj.number })
             .then(updatedPerson => {
               setPersons(persons.map(person => person.id !== updatedPerson.id ? person : updatedPerson))
               setSuccessMsg(`Number of '${newName}' has been successfully changed`);
@@ -59,9 +59,8 @@ const App = () => {
               setNewNumber('');
             })
             .catch(e => {
-              setErrorMsg(`the contact ${newName} was already deleted from server`)
+              setErrorMsg(e.response?.data?.error || e.message)
               setTimeout(() => setErrorMsg(null), 5000)
-              setPersons(persons.filter(person => person.id !== foundPerson.id))
             })
       }
     }

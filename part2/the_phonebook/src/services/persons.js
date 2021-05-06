@@ -15,8 +15,8 @@ const del = id => {
   return axios.delete(`${baseUrl}/${id}`)
 }
 
-const updateNumber = (id, updObj) => {
-  return axios.put(`${baseUrl}/${id}`, updObj)
+const updateNumber = (id, updParams) => {
+  return axios.put(`${baseUrl}/${id}`, updParams)
     .then(res => res.data)
 }
 
