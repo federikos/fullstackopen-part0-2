@@ -40,8 +40,8 @@ const App = () => {
             setNewName('');
             setNewNumber('');
           })
-          .catch(e => {
-            setErrorMsg(e.message);
+          .catch((e) => {
+            setErrorMsg(e.response?.data?.error || e.message);
             setTimeout(() => setErrorMsg(null), 5000)
           })
     } else {
